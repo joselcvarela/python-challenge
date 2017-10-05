@@ -60,13 +60,18 @@ def level6():
   nextFile = '90052'
   pattern = re.compile(r'[0-9]+$')
   res = ''
+  finalres = ''
+  char = ''
   while True:
-    res += folder.getinfo(nextFile + '.txt').comment
+    char = folder.getinfo(nextFile + '.txt').comment
+    res += char
+    if ord(char) > ord('A') and ord(char) < ord('z') and char not in finalres:
+      finalres += char
     ff = folder.read(nextFile + '.txt')
     nextFile = ''.join(pattern.findall(ff))
     if not nextFile:
-      print ff
-      return res
+      print res
+      return finalres
   return res
 
 print level6()

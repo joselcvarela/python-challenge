@@ -2,7 +2,6 @@ import urllib
 import re
 import pickle
 import zipfile
-import os
 
 def level0():
   data = ""

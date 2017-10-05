@@ -1,5 +1,6 @@
 import urllib
 import re
+import pickle
 
 def level0():
   data = ""
@@ -46,4 +47,11 @@ def level4():
     nothing = nextNum
   return nothing
 
-print level4()
+def level5():
+  res = ""
+  obj = pickle.load(open('05.p', 'rb'))
+  for i in obj:
+    res += ''.join(char * n for char, n in i) + '\n'
+  return res
+
+print level5()

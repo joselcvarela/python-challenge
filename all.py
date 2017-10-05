@@ -1,6 +1,8 @@
 import urllib
 import re
 import pickle
+import zipfile
+import os
 
 def level0():
   data = ""
@@ -36,10 +38,10 @@ def level3():
 
 def level4():
   nothing = "12345"
+  pattern = re.compile(r'[0-9]+$')
   while True:
     req = urllib.urlopen("http://www.pythonchallenge.com/pc/def/linkedlist.php?nothing="+nothing)
     text = req.read()
-    pattern = re.compile(r'[0-9]+$')
     nextNum = ''.join(pattern.findall(text))
     if not nextNum:
       return text
@@ -54,4 +56,18 @@ def level5():
     res += ''.join(char * n for char, n in i) + '\n'
   return res
 
-print level5()
+def level6():
+  folder = zipfile.ZipFile('06.zip', 'r')
+  nextFile = '90052'
+  pattern = re.compile(r'[0-9]+$')
+  res = ''
+  while True:
+    res += folder.getinfo(nextFile + '.txt').comment
+    ff = folder.read(nextFile + '.txt')
+    nextFile = ''.join(pattern.findall(ff))
+    if not nextFile:
+      print ff
+      return res
+  return res
+
+print level6()
